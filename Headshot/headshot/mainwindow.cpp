@@ -69,10 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     guias.append(new obstaculoGraf(635, 250, 500, 1270, ":/Img/principal"));
 
     scene->addItem(guias.at(0));
-    ui->pushButton_guardar_partida->setDisabled(true);
-    ui->pushButton_cargar_partida->setDisabled(true);
-    ui->pushButton_reiniciar_nivel->setDisabled(true);
-    ui->pushButton_reiniciar_juego->setDisabled(true);
+
 }
 
 
