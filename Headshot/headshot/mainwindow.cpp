@@ -122,8 +122,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event) //Método donde se 
     {
         QMouseEvent* mouse = static_cast<QMouseEvent*>(event);
         QPointF pos = ui->graphicsView->mapToScene(mouse->pos());
-        //ui->xSpinBox->setValue(pos.x());
-        //ui->ySpinBox->setValue(v_limit - pos.y());
+
         delta = atan2(((v_limit-13) - pos.y()),(pos.x() - 55)) * 180/PI;
         if(delta < -17){ //Se definen los límites para el ángulo, siendo -17 el menor y 70 el mayor
             delta = -17;
