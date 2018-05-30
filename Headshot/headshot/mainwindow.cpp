@@ -20,11 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->graphicsView->setScene(scene);
     ui->graphicsView->viewport()->installEventFilter(this);
-    ui->graphicsView->viewport()->setMouseTracking(true);
+    ui->graphicsView->viewport()->setMouseTracking(true);  //Seguimiento del mouse
             qDebug()<<ui->graphicsView->size();
     ui->centralWidget->adjustSize();
             qDebug()<<ui->centralWidget->size();
-   //this->adjustSize();//
+
 
         qDebug()<<this->size();
     scene->addRect(scene->sceneRect());
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timerPower->stop();                         //para el timer del progressBar
 
     proyector.append(new proyectorGraf(55, 13));
-    scene->addItem(proyector.last());
+    scene->addItem(proyector.last());    //añade el cañon
     scene->setBackgroundBrush(QPixmap(":/Img/fondo"));
 
     QFile file_2(RUTA_ARCHIVO_2);           //Objeto para manejar la lectura del archivo
@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-void MainWindow::actualizar()
+void MainWindow::actualizar() //animacion
 {
     if(obstaculos.isEmpty()==false || objetivos.isEmpty()==false){
     for(int i=0;i<proyectiles.size();i++){
@@ -103,7 +103,7 @@ void MainWindow::power() //SLOT donde se corre el progressBar
         ui->progressBar->setValue(i);
         if(i==100){
             j=100;
-        }
+        }                         //condicionales que controlan el progressbar
     }
     else if(j>20){
         j-=5;
@@ -229,7 +229,7 @@ void MainWindow::loader(int ban)  //cargador de archivos
         doc=doc.remove(0,n+1);
     }
 
-    n=0;
+    n=0;                                                                    //para los proximos niveles
     while(n<dats.size()){
         if(dats.at(n)=="E"){
             if(ban ==0){

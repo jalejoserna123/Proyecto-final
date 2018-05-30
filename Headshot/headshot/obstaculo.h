@@ -4,7 +4,7 @@
 
 #include <QString>
 
-class obstaculo
+class obstaculo     //Clase de obstaculos
 {
 private:
     float px;

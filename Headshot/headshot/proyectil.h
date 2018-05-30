@@ -9,7 +9,7 @@
 #include <QGraphicsScene>
 #include <math.h>
 
-class proyectil
+class proyectil    //Clase bolas de nieve
 {
 private:
     float radio= 6;

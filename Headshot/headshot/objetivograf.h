@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-class objetivoGraf: public QGraphicsItem
+class objetivoGraf: public QGraphicsItem //Clase de objetivos (cabezas) para graficar
 {
 public:
     objetivoGraf(float px_, float py_, float height_, float widht_, QString direccion_);
