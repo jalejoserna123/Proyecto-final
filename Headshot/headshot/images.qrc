@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/Img">
+        <file>bloque.png</file>
+        <file>cadena.png</file>
+        <file>cadena2.png</file>
+        <file>canon.png</file>
+        <file>cuarto.png</file>
+        <file>desempate.jpg</file>
+        <file>fondo.jpg</file>
+        <file>ganador.jpg</file>
+        <file>ganador_m.jpg</file>
+        <file>objetivo.png</file>
+        <file>pared.png</file>
+        <file>primero.png</file>
+        <file>principal.jpg</file>
+        <file>segundo.png</file>
+        <file>tercero.png</file>
+    </qresource>
+    <qresource prefix="/Sounds">
+        <file>sound_canon.mp3</file>
+        <file>sound_final.mp3</file>
+        <file>sound_impacto.mp3</file>
+    </qresource>
+</RCC>
