@@ -3,7 +3,7 @@
 
 #include <QString>
 
-class objetivo  //Clase de los objetivos (cabezas)
+class objetivo
 {
 private:
     float height;

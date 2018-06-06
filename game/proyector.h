@@ -6,7 +6,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-class proyector           //Clase del cañon
+class proyector
 {
 private:
     float px;

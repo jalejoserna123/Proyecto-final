@@ -9,7 +9,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-class obstaculoGraf: public QGraphicsItem //Clase de obstaculos (Para graficar)
+class obstaculoGraf: public QGraphicsItem
 {
 public:
     obstaculoGraf(float px_, float py_, float height_, float widht_, QString direccion_);

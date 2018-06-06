@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-class proyectilGraf: public QGraphicsItem   //Clase de bolas nieve para graficar
+class proyectilGraf: public QGraphicsItem
 {
 public:
     proyectilGraf(float px_, float py_, float V, float delta_);

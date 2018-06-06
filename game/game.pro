@@ -34,7 +34,8 @@ SOURCES += \
     proyector.cpp \
     proyectilgraf.cpp \
     obstaculo.cpp \
-    obstaculograf.cpp
+    obstaculograf.cpp \
+    rules.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,10 +46,12 @@ HEADERS += \
     proyector.h \
     proyectilgraf.h \
     obstaculo.h \
-    obstaculograf.h
+    obstaculograf.h \
+    rules.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    rules.ui
 
 RESOURCES += \
     images.qrc

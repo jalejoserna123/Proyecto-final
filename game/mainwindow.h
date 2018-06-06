@@ -23,6 +23,7 @@
 #include <math.h>
 #include <QMouseEvent>
 #include <fstream>
+#include "rules.h"
 
 
 namespace Ui {
@@ -56,6 +57,10 @@ private slots:
     void on_pushButton_reiniciar_juego_clicked();
 
     void on_pushButton_sound_clicked();
+
+    void on_actionRules_triggered();
+
+    void on_actionClose_Game_triggered();
 
 protected:
 

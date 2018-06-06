@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-class proyectorGraf: public QGraphicsItem   //Clase del cañon para graficarlo
+class proyectorGraf: public QGraphicsItem
 {
 public:
     proyectorGraf(float px_, float py_);
