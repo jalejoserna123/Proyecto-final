@@ -3,7 +3,7 @@
 #define PI 3.141592654
 #define RUTA_ARCHIVO "objetivos.txt"     //ruta en que se encuentra el archivo de objetivos
 #define RUTA_ARCHIVO_2 "obstaculos.txt"     //ruta en que se encuentra el archivo de obstaculos
-
+#define control_acceso "control.txt"
 
 #include <QMainWindow>
 #include <QGraphicsScene>
@@ -24,6 +24,7 @@
 #include <QMouseEvent>
 #include <fstream>
 #include "rules.h"
+#include "control.h"
 
 
 namespace Ui {
@@ -37,6 +38,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    bool f = true;
 
 private slots:
 
@@ -61,6 +63,8 @@ private slots:
     void on_actionRules_triggered();
 
     void on_actionClose_Game_triggered();
+
+    void on_pushButton_clicked();
 
 protected:
 
@@ -100,6 +104,7 @@ private:
     QString obje;                           //String para leer los datos del archivo
     QString obs;
     bool sound = true;
+    Control x;
 };
 
 #endif // MAINWINDOW_H

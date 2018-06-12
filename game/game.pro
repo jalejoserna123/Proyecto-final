@@ -35,7 +35,9 @@ SOURCES += \
     proyectilgraf.cpp \
     obstaculo.cpp \
     obstaculograf.cpp \
-    rules.cpp
+    rules.cpp \
+    control.cpp \
+    singup.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,11 +49,15 @@ HEADERS += \
     proyectilgraf.h \
     obstaculo.h \
     obstaculograf.h \
-    rules.h
+    rules.h \
+    control.h \
+    singup.h
 
 FORMS += \
         mainwindow.ui \
-    rules.ui
+    rules.ui \
+    control.ui \
+    singup.ui
 
 RESOURCES += \
     images.qrc

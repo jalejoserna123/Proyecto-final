@@ -72,21 +72,24 @@ MainWindow::MainWindow(QWidget *parent) :
     guias.append(new obstaculoGraf(635, 250, 500, 1270, ":/Img/desempate"));
     scene->addItem(guias.at(0));
     ui->pushButton_guardar_partida->setDisabled(true);
-    ui->pushButton_cargar_partida->setDisabled(true);
+    ui->pushButton_cargar_partida->setDisabled(true);        //encender los botones
     ui->pushButton_reiniciar_nivel->setDisabled(true);
     ui->pushButton_reiniciar_juego->setDisabled(true);
+    //ui->pushButton_Individual->setDisabled(true);
+    //ui->pushButton_multijugador->setDisabled(true);
+
 }
 
 
 
 void MainWindow::actualizar()
 {
-    if(obstaculos.isEmpty()==false || objetivos.isEmpty()==false){
+    if(obstaculos.isEmpty()==false || objetivos.isEmpty()==false){       //movimiento
     for(int i=0;i<proyectiles.size();i++){
         proyectiles.at(i)->actualizar(dt,v_limit);
         bordercollision(proyectiles.at(i));
     }
-    if(objetivos.isEmpty()){
+    if(objetivos.isEmpty()){                    //cambio de mapas
         puntuacion += 50*cantidad;
         texto->setPlainText(QString::number(puntuacion));
         if(punt_jugadores.isEmpty()){
@@ -94,17 +97,17 @@ void MainWindow::actualizar()
         }
         else{
             if(cont<punt_jugadores.size()){
-                punt_jugadores.replace(cont,QString::number(puntuacion));
+                punt_jugadores.replace(cont,QString::number(puntuacion));   //sumario de puntos
                 cont++;
                 if(cont!=punt_jugadores.size()){
-                    mensaje->setPlainText("Jugador número " +QString::number(cont+1));
+                    mensaje->setPlainText("Player # " +QString::number(cont+1));
                     acumulado = punt_jugadores.at(cont).toInt();
                     this->multijugador();
                 }
             }
             else{
                 cont=0;
-                mensaje->setPlainText("Jugador número " +QString::number(cont+1));
+                mensaje->setPlainText("Player # " +QString::number(cont+1));
                 puntuacion = punt_jugadores.at(cont).toInt();
                 acumulado = puntuacion;
                 texto->setPlainText(QString::number(puntuacion));
@@ -129,8 +132,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::power() //SLOT donde se corre el progressBar
 {
+    if(f==true && x.GetS() == true)
+    {
+        QMessageBox::warning(this,"Warning!","entró");
+        ui->pushButton_Individual->setEnabled(true);
+        ui->pushButton_multijugador->setEnabled(true);
+        f = false;
+    }
     if(i<100){
-        i += 5;
+        i += 5;          //ciclos que controlan la potencia del disparo
         vel = i+50;
         ui->progressBar->setValue(i);
         if(i==100){
@@ -147,15 +157,14 @@ void MainWindow::power() //SLOT donde se corre el progressBar
     }
 }
 
-bool MainWindow::eventFilter(QObject *object, QEvent *event) //Método donde se dan las posiciones del mouse (Solución sacada de internet, no sé porqué ni cómo funciona)
+bool MainWindow::eventFilter(QObject *object, QEvent *event) //Método donde se dan las posiciones del mouse
 {
     event->accept();
     if (event->type() == QEvent::MouseMove)
     {
         QMouseEvent* mouse = static_cast<QMouseEvent*>(event);
         QPointF pos = ui->graphicsView->mapToScene(mouse->pos());
-        //ui->xSpinBox->setValue(pos.x());
-        //ui->ySpinBox->setValue(v_limit - pos.y());
+
         delta = atan2(((v_limit-13) - pos.y()),(pos.x() - 55)) * 180/PI;
         if(delta < -17){ //Se definen los límites para el ángulo, siendo -17 el menor y 70 el mayor
             delta = -17;
@@ -187,7 +196,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event) //Método que capta cuándo
     }
 }
 
-void MainWindow::bordercollision(proyectilGraf* b)
+void MainWindow::bordercollision(proyectilGraf* b)    //colision con los bordes del mapa
 {
     for(int i=0; i<obstaculos.size();i++){
         if(b->collidesWithItem(obstaculos.at(i)) && (obstaculos.at(i)->getObstaculo()->getDir() != ":/Img/cadena") && (obstaculos.at(i)->getObstaculo()->getDir() != ":/Img/cadena2")){
@@ -234,7 +243,7 @@ void MainWindow::bordercollision(proyectilGraf* b)
     }
 }
 
-void MainWindow::loader(int ban)
+void MainWindow::loader(int ban)          //cargador de archivos
 {
     QString doc;
     if(ban == 0){
@@ -307,12 +316,13 @@ void MainWindow::loader(int ban)
     }
 }
 
-void MainWindow::changeMap()
+void MainWindow::changeMap()       //cambio de mapa
 {
+
     if(punt_jugadores.isEmpty()){
         acumulado = puntuacion;
     }
-    for(int i=0; i<objetivos.size();i++){
+    for(int i=0; i<objetivos.size();i++){      //condicionales y ciclos que determinan cuando se cambia de mapa
         scene->removeItem(objetivos.at(i));
     }
     objetivos.clear();
@@ -327,7 +337,7 @@ void MainWindow::changeMap()
     if(obje.size() == 1 && obs.size() == 1 && punt_jugadores.isEmpty()){
         if(sound==true){
             QMediaPlayer *sound_final = new QMediaPlayer();
-            //sound_final->setMedia(QUrl::fromLocalFile("C:/Users/Jhonatan Sossa/Pictures/sound_final.mp3"));
+
             sound_final->setMedia(QUrl("qrc:/Sounds/sound_final.mp3"));
             sound_final->setVolume(50);
             sound_final->play();
@@ -341,12 +351,12 @@ void MainWindow::changeMap()
     else if(obje.size() == 1 && obs.size() == 1 && punt_jugadores.isEmpty() == false){
         if(sound==true){
             QMediaPlayer *sound_final = new QMediaPlayer();
-            //sound_final->setMedia(QUrl::fromLocalFile("C:/Users/Jhonatan Sossa/Pictures/sound_final.mp3"));
+
             sound_final->setMedia(QUrl("qrc:/Sounds/sound_final.mp3"));
             sound_final->setVolume(50);
             sound_final->play();
         }
-        int mayor, jugador;
+        int mayor, jugador;    //para multijugador
         if(punt_jugadores.at(0).toInt() > punt_jugadores.at(1).toInt()){
             mayor = punt_jugadores.at(0).toInt();
             jugador = 1;
@@ -377,7 +387,7 @@ void MainWindow::changeMap()
     }
 }
 
-void MainWindow::multijugador()
+void MainWindow::multijugador()     //para manejar el multijugador
 {
     objetivos = temp_objetivos;
     for(int i=0; i<objetivos.size();i++){
@@ -393,21 +403,21 @@ void MainWindow::multijugador()
     texto->setPlainText(QString::number(puntuacion));
 }
 
-void MainWindow::on_pushButton_multijugador_clicked()
+void MainWindow::on_pushButton_multijugador_clicked()  //requisitos para multijugador
 {
     scene->removeItem(guias.at(0));
     ui->pushButton_Individual->setDisabled(true);
     ui->pushButton_multijugador->setDisabled(true);
     ui->pushButton_reiniciar_nivel->setEnabled(true);
     ui->pushButton_reiniciar_juego->setEnabled(true);
-    mensaje->setPlainText("Jugador número " +QString::number(cont+1));
+    mensaje->setPlainText("Player #1: " +QString::number(cont+1));
     mensaje->startTimer(1000);
     QString t = QString::number(0);
     punt_jugadores.append(t);
     punt_jugadores.append(t);
 }
 
-void MainWindow::on_pushButton_Individual_clicked()
+void MainWindow::on_pushButton_Individual_clicked()    //para modo de juego indivual
 {
     scene->removeItem(guias.at(0));
     ui->pushButton_reiniciar_juego->setEnabled(true);
@@ -419,11 +429,11 @@ void MainWindow::on_pushButton_Individual_clicked()
 }
 
 
-void MainWindow::on_pushButton_guardar_partida_clicked()
+void MainWindow::on_pushButton_guardar_partida_clicked()   //guardar partida
 {
     ofstream fout;
     fout.open("objetivos_save.txt");
-    for(int i=0; i<objetivos.size(); i++){
+    for(int i=0; i<objetivos.size(); i++){    //ciclos que copian en los archivos para guardar partida
         if(i < (objetivos.size()-1)){
             fout<<"E "<<objetivos.at(i)->getObjetivo()->getX()<<" "<<objetivos.at(i)->getObjetivo()->getY()<<" "<<objetivos.at(i)->getObjetivo()->getH()<<" "<<objetivos.at(i)->getObjetivo()->getW()<<" "<< objetivos.at(i)->getObjetivo()->getDir().toStdString()<<" ";
         }
@@ -444,7 +454,7 @@ void MainWindow::on_pushButton_guardar_partida_clicked()
     }
     fout.close();
 
-    fout.open("proyectiles_save.txt");
+    fout.open("proyectiles_save.txt");    //ciclos que leen los archivos de guardar partida
     for(int i=0; i<proyectiles.size(); i++){
         if(i<(proyectiles.size()-1)){
             fout<<"E "<<proyectiles.at(i)->getProyectil()->getX()<<" "<<proyectiles.at(i)->getProyectil()->getY()<<" "<<proyectiles.at(i)->getProyectil()->getVx()<<" "<<proyectiles.at(i)->getProyectil()->getVy()<<" "<<proyectiles.at(i)->getProyectil()->getAx()<<" "<<proyectiles.at(i)->getProyectil()->getAy()<<" ";
@@ -493,7 +503,7 @@ void MainWindow::on_pushButton_cargar_partida_clicked()
     loader(3);
 }
 
-void MainWindow::on_pushButton_reiniciar_nivel_clicked()
+void MainWindow::on_pushButton_reiniciar_nivel_clicked() //para el reinicio de nivel
 {
     if(acumulado>0){
         acumulado -= 50;
@@ -501,7 +511,7 @@ void MainWindow::on_pushButton_reiniciar_nivel_clicked()
     for(int i=0; i<objetivos.size();i++){
         scene->removeItem(objetivos.at(i));
     }
-    for(int i=0; i<proyectiles.size();i++){
+    for(int i=0; i<proyectiles.size();i++){      //ciclos y condicionales que reinician el nivel
         scene->removeItem(proyectiles.at(i));
     }
     proyectiles.clear();
@@ -515,7 +525,7 @@ void MainWindow::on_pushButton_reiniciar_nivel_clicked()
     texto->setPlainText(QString::number(puntuacion));
 }
 
-void MainWindow::on_pushButton_reiniciar_juego_clicked()
+void MainWindow::on_pushButton_reiniciar_juego_clicked()   //para reiniciar el juego hasta el inicio
 {
     ui->pushButton_guardar_partida->setDisabled(true);
     ui->pushButton_cargar_partida->setDisabled(true);
@@ -568,21 +578,21 @@ void MainWindow::on_pushButton_reiniciar_juego_clicked()
     scene->addItem(guias.at(0));
 }
 
-void MainWindow::on_pushButton_sound_clicked()
+void MainWindow::on_pushButton_sound_clicked()  //para manejar sonido del juego
 {
     if(sound == true){
-        ui->pushButton_sound->setText("Activar sonido");
+        ui->pushButton_sound->setText("Sound on");
         sound = false;
     }
     else{
-        ui->pushButton_sound->setText("Desactivar sonido");
+        ui->pushButton_sound->setText("Sound off");
         sound = true;
     }
 }
 
 
 
-void MainWindow::on_actionRules_triggered()
+void MainWindow::on_actionRules_triggered()    //para las reglas que son otra ventana
 {
     Rules *MyRules = new Rules(); MyRules->show();
 }
@@ -590,4 +600,9 @@ void MainWindow::on_actionRules_triggered()
 void MainWindow::on_actionClose_Game_triggered()
 {
     this->close();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    Control *MyControl = new Control(); MyControl->show();
 }
