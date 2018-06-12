@@ -33,12 +33,11 @@ void Control::on_pushButton_clicked() //para registrarse
     {
         QMessageBox::about(this,"Done",("Welcome!",a));
         SetS();
+        this->close();
     }
 
     if(c!=text)
         QMessageBox::warning(this,"Warning!","Username or password incorrect.");
-
-    this->close();
 }
 
 void Control::SetS()
